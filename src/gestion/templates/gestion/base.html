@@ -9,7 +9,26 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230066cc'/><text x='50' y='65' font-size='60' font-weight='bold' fill='white' text-anchor='middle'>S</text></svg>">
     
-    <!-- CSS -->
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuration Tailwind personnalisée -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0066cc',
+                        'primary-light': '#3385dd',
+                        'primary-dark': '#004499',
+                        secondary: '#f0f7ff',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- CSS personnalisé -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     
     {% block extra_css %}{% endblock %}

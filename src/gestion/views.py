@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.http import require_http_methods
-from django.db.models import Count, Q
+from django.db.models import Count, Q, Sum
 from datetime import datetime, timedelta
 from .models import (
     Etudiant, Enseignant, Classe, Note, Paiement, 
@@ -16,7 +16,7 @@ from .models import (
 def login_view(request):
     """Vue de connexion"""
     if request.user.is_authenticated:
-        return redirect('dashboard')
+        return redirect('gestion:dashboard')
     
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -34,7 +34,7 @@ def login_view(request):
                 description=f"{user.username} s'est connecté",
                 adresse_ip=get_client_ip(request)
             )
-            return redirect('dashboard')
+            return redirect('gestion:dashboard')
         else:
             return render(request, 'gestion/login.html', {
                 'error': 'Identifiants incorrects'
@@ -43,6 +43,7 @@ def login_view(request):
     return render(request, 'gestion/login.html')
 
 
+@login_required(login_url='gestion:login')
 def logout_view(request):
     """Vue de déconnexion"""
     if request.user.is_authenticated:
@@ -54,12 +55,12 @@ def logout_view(request):
             adresse_ip=get_client_ip(request)
         )
     logout(request)
-    return redirect('login')
+    return redirect('gestion:login')
 
 
 # ========== DASHBOARD PRINCIPAL ==========
 
-@login_required(login_url='login')
+@login_required(login_url='gestion:login')
 def dashboard(request):
     """Dashboard principal - Route vers le dashboard approprié selon le rôle"""
     user = request.user
@@ -81,6 +82,7 @@ def dashboard(request):
 
 # ========== DASHBOARD ADMIN ==========
 
+@login_required(login_url='gestion:login')
 def dashboard_admin(request):
     """Dashboard pour l'administrateur"""
     
@@ -97,7 +99,7 @@ def dashboard_admin(request):
     ).count()
     
     montant_total_paiements = Paiement.objects.aggregate(
-        total=models.Sum('montant')
+        total=Sum('montant')
     )['total'] or 0
     
     # Activités récentes (derniers 10 jours)
@@ -139,8 +141,16 @@ def dashboard_admin(request):
 
 # ========== DASHBOARD PROFESSEUR ==========
 
-def dashboard_professeur(request, enseignant):
+@login_required(login_url='gestion:login')
+def dashboard_professeur(request, enseignant=None):
     """Dashboard pour l'enseignant"""
+    
+    # Si enseignant n'est pas fourni, le récupérer
+    if enseignant is None:
+        try:
+            enseignant = Enseignant.objects.get(user=request.user)
+        except Enseignant.DoesNotExist:
+            return redirect('gestion:dashboard')
     
     # Classes enseignées
     classes = Classe.objects.filter(
@@ -172,22 +182,10 @@ def dashboard_professeur(request, enseignant):
         date_action__gte=date_limite
     ).order_by('-date_action')[:8]
     
-    # Étudiants par classe
-    etudiants_par_classe = []
-    for classe in classes[:5]:
-        nb_etudiants = Etudiant.objects.filter(
-            assignationetudiantclasse__classe=classe,
-            is_active=True
-        ).count()
-        etudiants_par_classe.append({
-            'classe': classe,
-            'nombre': nb_etudiants
-        })
-    
     # Dernières notes enregistrées
     dernieres_notes = Note.objects.filter(
         matiere__assignationclassematiereenseignant__enseignant=enseignant
-    ).order_by('-date_enregistrement')[:5]
+    ).order_by('-date_enregistrement')[:10]
     
     context = {
         'role': 'professeur',
@@ -197,7 +195,6 @@ def dashboard_professeur(request, enseignant):
         'notes_enregistrees': notes_enregistrees,
         'bulletins_generes': bulletins_generes,
         'activites': activites,
-        'etudiants_par_classe': etudiants_par_classe,
         'dernieres_notes': dernieres_notes,
         'classes': classes[:10],
     }
@@ -207,6 +204,7 @@ def dashboard_professeur(request, enseignant):
 
 # ========== DASHBOARD COLLABORATEUR ==========
 
+@login_required(login_url='gestion:login')
 def dashboard_collaborateur(request):
     """Dashboard pour le collaborateur/secrétaire"""
     
@@ -228,7 +226,7 @@ def dashboard_collaborateur(request):
         date_paiement__month=datetime.now().month,
         date_paiement__year=datetime.now().year
     ).aggregate(
-        total=models.Sum('montant')
+        total=Sum('montant')
     )['total'] or 0
     
     # Classes
@@ -255,7 +253,7 @@ def dashboard_collaborateur(request):
     ).count()
     
     # Derniers paiements enregistrés
-    derniers_paiements = Paiement.objects.order_by('-date_enregistrement')[:5]
+    derniers_paiements = Paiement.objects.order_by('-date_enregistrement')[:10]
     
     # Derniers étudiants inscrits
     derniers_etudiants = Etudiant.objects.order_by('-date_inscription')[:5]
@@ -265,7 +263,7 @@ def dashboard_collaborateur(request):
         'total_etudiants': total_etudiants,
         'nouveaux_etudiants': nouveaux_etudiants,
         'total_paiements_mois': total_paiements_mois,
-        'montant_paiements_mois': montant_paiements_mois,
+        'montant_paiements_mois': round(montant_paiements_mois, 2),
         'total_classes': total_classes,
         'etudiants_sans_paiement': etudiants_sans_paiement,
         'activites': activites,
