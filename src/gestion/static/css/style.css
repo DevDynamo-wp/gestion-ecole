@@ -1,168 +1,153 @@
-/* ========== VARIABLES PERSONNALISÉES ========== */
+/* ==========================================================
+   VARIABLES PERSONNALISÉES — Palette adaptée à la maquette
+   ========================================================== */
 :root {
-    --primary: #0066cc;
-    --primary-light: #3385dd;
-    --primary-dark: #004499;
-    --secondary: #f0f7ff;
-    --accent: #00d4ff;
-    --success: #10b981;
-    --warning: #f59e0b;
-    --danger: #ef4444;
-    --dark: #1f2937;
-    --light: #f9fafb;
+    --primary: #0070E0;          /* Bleu principal */
+    --primary-light: #339CFF;    /* Bleu clair pour hover et accents */
+    --primary-dark: #003087;     /* Bleu foncé (titres ou hover fort) */
+    --secondary: #F5F7FA;        /* Fond clair pour sections */
+    --accent: #00B8F0;           /* Accent turquoise */
+    --success: #16A34A;          /* Vert positif */
+    --warning: #F59E0B;          /* Orange attention */
+    --danger: #DC2626;           /* Rouge notification */
+    --dark: #111827;             /* Texte principal */
+    --gray: #6B7280;             /* Texte secondaire */
+    --light: #FFFFFF;            /* Blanc pur */
+    --border: #E5E7EB;           /* Bordures et séparateurs */
 }
 
-/* ========== ANIMATIONS PERSONNALISÉES ========== */
+/* ==========================================================
+   ANIMATIONS PERSONNALISÉES
+   ========================================================== */
 @keyframes slideInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes pulse-glow {
-    0%, 100% {
-        box-shadow: 0 0 0 0 rgba(0, 102, 204, 0.7);
-    }
-    50% {
-        box-shadow: 0 0 0 10px rgba(0, 102, 204, 0);
-    }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 112, 224, 0.6); }
+    50% { box-shadow: 0 0 0 10px rgba(0, 112, 224, 0); }
 }
 
 @keyframes float {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
 }
 
-/* ========== CLASSES UTILITAIRES PERSONNALISÉES ========== */
-.animate-slide-in-down {
-    animation: slideInDown 0.5s ease-out;
+/* ==========================================================
+   CLASSES D’ANIMATION
+   ========================================================== */
+.animate-slide-in-down { animation: slideInDown 0.5s ease-out; }
+.animate-slide-in-up { animation: slideInUp 0.5s ease-out; }
+.animate-fade-in { animation: fadeIn 0.5s ease-out; }
+.animate-pulse-glow { animation: pulse-glow 2s infinite; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+
+/* ==========================================================
+   STYLES GÉNÉRAUX
+   ========================================================== */
+* { scroll-behavior: smooth; }
+
+body {
+    background-color: var(--secondary);
+    color: var(--dark);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
-.animate-slide-in-up {
-    animation: slideInUp 0.5s ease-out;
-}
-
-.animate-fade-in {
-    animation: fadeIn 0.5s ease-out;
-}
-
-.animate-pulse-glow {
-    animation: pulse-glow 2s infinite;
-}
-
-.animate-float {
-    animation: float 3s ease-in-out infinite;
-}
-
-/* ========== STYLES GÉNÉRAUX ========== */
-* {
-    scroll-behavior: smooth;
-}
-
-/* ========== CORRECTION DES ICÔNES SVG ========== */
+/* ==========================================================
+   ICONES & SVG
+   ========================================================== */
 svg {
     display: inline-block;
     vertical-align: middle;
+    fill: currentColor;
 }
 
-.sidebar-icon svg {
-    width: 24px;
-    height: 24px;
-}
+.sidebar-icon svg { width: 24px; height: 24px; }
+.card-body svg { flex-shrink: 0; }
+.w-16.h-16 svg, .w-8.h-8 svg { width: 32px; height: 32px; }
 
-/* Icônes dans les cartes */
-.card-body svg {
-    flex-shrink: 0;
-}
-
-/* Fix pour les icônes dans les stat cards */
-.w-16.h-16 svg {
-    width: 32px;
-    height: 32px;
-}
-
-.w-8.h-8 svg {
-    width: 32px;
-    height: 32px;
-}
-
-/* ========== CORRECTION DES CARTES ========== */
+/* ==========================================================
+   CARTES (Cards)
+   ========================================================== */
 .card {
-    background: white;
+    background: var(--light);
     border-radius: 12px;
+    border: 1px solid var(--border);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    border: 1px solid #e5e7eb;
     transition: all 0.3s ease;
     overflow: hidden;
 }
 
 .card:hover {
-    box-shadow: 0 8px 25px rgba(0, 102, 204, 0.15);
-    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 112, 224, 0.15);
+    transform: translateY(-4px);
     border-color: var(--primary-light);
 }
 
 .card-header {
-    background: linear-gradient(135deg, var(--secondary) 0%, #e0f2fe 100%);
-    padding: 1.5rem;
-    border-bottom: 2px solid #d0e8f2;
+    background: linear-gradient(135deg, var(--secondary), #E0F2FE);
+    padding: 1.2rem 1.5rem;
+    border-bottom: 2px solid #D0E8F2;
 }
 
-.card-body {
-    padding: 1.5rem;
-}
-
+.card-body { padding: 1.5rem; }
 .card-footer {
-    background-color: #f9fafb;
+    background-color: #F9FAFB;
     padding: 1rem 1.5rem;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid var(--border);
 }
 
-/* ========== CORRECTION NAVBAR ========== */
+/* ==========================================================
+   NAVBAR
+   ========================================================== */
 .navbar {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-    box-shadow: 0 4px 15px rgba(0, 102, 204, 0.2);
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    box-shadow: 0 4px 15px rgba(0, 112, 224, 0.25);
+    color: white;
     transition: all 0.3s ease;
 }
 
-/* ========== CORRECTION SIDEBAR ========== */
+/* ==========================================================
+   SIDEBAR
+   ========================================================== */
 .sidebar {
-    background: white;
-    border-right: 1px solid #e5e7eb;
-    transition: all 0.3s ease;
+    background: var(--light);
+    border-right: 1px solid var(--border);
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
 }
 
 .sidebar-item {
     color: var(--dark);
     padding: 1rem 1.5rem;
-    dis
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.sidebar-item:hover {
+    background-color: var(--secondary);
+    border-left-color: var(--primary);
+    color: var(--primary);
+}
+
+/* ==========================================================
+   BADGES & STATUTS
+   ========================================================== */
+.badge-success { color: var(--success); }
+.badge-danger { color: var(--danger); }
+.badge-warning { color: var(--warning); }
+.badge-info { color: var(--primary-light); }
