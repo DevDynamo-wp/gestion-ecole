@@ -1,0 +1,211 @@
+{% extends 'gestion/base.html' %}
+
+{% block title %}Tableau de Bord Admin - SchoolPro{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="mb-8 animate-slide-in-down">
+    <div class="flex justify-between items-center">
+        <div>
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">Tableau de Bord Admin</h1>
+            <p class="text-gray-600">Vue d'ensemble complète du système</p>
+        </div>
+        <div class="hidden md:block text-right">
+            <p class="text-sm text-gray-600">Connecté en tant que</p>
+            <p class="text-lg font-bold text-gray-900">{{ user.get_full_name|default:user.username }}</p>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Cards - 4 Colonnes -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    
+    <!-- Étudiants -->
+    <div class="card hover:shadow-lg transition-all duration-300 animate-slide-in-up" style="animation-delay: 0.1s">
+        <div class="card-body">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 text-sm font-medium">Étudiants Actifs</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-2">{{ total_etudiants }}</p>
+                    <p class="text-xs text-gray-500 mt-2">Tous les niveaux</p>
+                </div>
+                <div class="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center">
+                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 8.048M7 14H5a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2h-2m-5-10l2-1m-4 1l-2-1"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enseignants -->
+    <div class="card hover:shadow-lg transition-all duration-300 animate-slide-in-up" style="animation-delay: 0.2s">
+        <div class="card-body">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 text-sm font-medium">Enseignants Actifs</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-2">{{ total_enseignants }}</p>
+                    <p class="text-xs text-gray-500 mt-2">Personnel permanent</p>
+                </div>
+                <div class="w-16 h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center">
+                    <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Classes -->
+    <div class="card hover:shadow-lg transition-all duration-300 animate-slide-in-up" style="animation-delay: 0.3s">
+        <div class="card-body">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 text-sm font-medium">Classes Actives</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-2">{{ total_classes }}</p>
+                    <p class="text-xs text-gray-500 mt-2">Effectifs complets</p>
+                </div>
+                <div class="w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-lg flex items-center justify-center">
+                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Taux de Paiement -->
+    <div class="card hover:shadow-lg transition-all duration-300 animate-slide-in-up" style="animation-delay: 0.4s">
+        <div class="card-body">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 text-sm font-medium">Taux de Paiement</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-2">{{ taux_paiement }}%</p>
+                    <p class="text-xs text-green-600 mt-2">✓ Bon suivi</p>
+                </div>
+                <div class="w-16 h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-lg flex items-center justify-center">
+                    <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    
+    <!-- Activités Récentes (2 colonnes) -->
+    <div class="lg:col-span-2">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-lg font-bold text-gray-900">Activités Récentes (10 derniers jours)</h2>
+            </div>
+            <div class="card-body">
+                {% if activites %}
+                    <div class="space-y-4">
+                        {% for activite in activites %}
+                            <div class="flex items-start gap-4 pb-4 border-b border-gray-200">
+                                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    {% if activite.action == 'create' %}
+                                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                        </svg>
+                                    {% elif activite.action == 'update' %}
+                                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                        </svg>
+                                    {% elif activite.action == 'delete' %}
+                                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                        </svg>
+                                    {% else %}
+                                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    {% endif %}
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-medium text-gray-900">{{ activite.get_action_display }} - {{ activite.get_entite_display }}</p>
+                                    <p class="text-sm text-gray-600">{{ activite.description }}</p>
+                                    <p class="text-xs text-gray-500 mt-1">{{ activite.date_action|date:"d/m/Y H:i" }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-gray-500 text-center py-8">Aucune activité récente</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="space-y-6">
+        <!-- Statistiques Paiements -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-lg font-bold text-gray-900">Paiements</h3>
+            </div>
+            <div class="card-body space-y-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Total</span>
+                    <span class="font-semibold text-gray-900">{{ total_paiements }}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Ce mois</span>
+                    <span class="font-semibold text-gray-900">{{ paiements_ce_mois }}</span>
+                </div>
+                <div class="flex justify-between items-center pt-4 border-t border-gray-200">
+                    <span class="text-gray-600">Montant total</span>
+                    <span class="font-bold text-blue-600">{{ montant_total_paiements }}€</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Étudiants par Classe -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-lg font-bold text-gray-900">Top 5 Classes</h3>
+            </div>
+            <div class="card-body">
+                {% if etudiants_par_classe %}
+                    <div class="space-y-3">
+                        {% for item in etudiants_par_classe %}
+                            <div class="flex justify-between items-center pb-3 border-b border-gray-200">
+                                <span class="text-gray-700 font-medium">{{ item.nom }}</span>
+                                <span class="badge badge-primary">{{ item.assignationetudiantclasse__count }} élèves</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-gray-500 text-center py-4">Aucune classe</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Départs Récents -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-lg font-bold text-gray-900">Départs Récents</h3>
+            </div>
+            <div class="card-body">
+                {% if departures %}
+                    <div class="space-y-3">
+                        {% for depart in departures %}
+                            <div class="pb-3 border-b border-gray-200">
+                                <p class="text-sm font-medium text-gray-900">{{ depart.get_type_depart_display }}</p>
+                                <p class="text-xs text-gray-600">{{ depart.date_depart|date:"d/m/Y" }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-gray-500 text-center py-4">Aucun départ enregistré</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

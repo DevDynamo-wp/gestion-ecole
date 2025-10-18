@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - SchoolPro</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230066cc'/><text x='50' y='65' font-size='60' font-weight='bold' fill='white' text-anchor='middle'>S</text></svg>">
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+    <style>
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animate-slide-in-down {
+            animation: slideInDown 0.5s ease-out;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .gradient-primary {
+            background: linear-gradient(135deg, #0066cc 0%, #3385dd 100%);
+        }
+
+        .shadow-glow {
+            box-shadow: 0 10px 40px rgba(0, 102, 204, 0.2);
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-white min-h-screen flex items-center justify-center p-4">
+    
+    <!-- Background Decorations -->
+    <div class="fixed top-0 right-0 w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-20 -z-10"></div>
+    <div class="fixed bottom-0 left-0 w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-20 -z-10"></div>
+
+    <div class="w-full max-w-md animate-slide-in-down">
+        <!-- Card Principal -->
+        <div class="bg-white rounded-2xl shadow-glow overflow-hidden">
+            
+            <!-- Header -->
+            <div class="gradient-primary p-8 text-white">
+                <div class="flex justify-center mb-4">
+                    <svg class="w-16 h-16" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" rx="10" fill="currentColor"/>
+                        <path d="M50 20L70 35H30L50 20Z" fill="white"/>
+                        <rect x="30" y="40" width="40" height="30" fill="white"/>
+                        <circle cx="40" cy="55" r="3" fill="#0066cc"/>
+                        <circle cx="50" cy="55" r="3" fill="#0066cc"/>
+                        <circle cx="60" cy="55" r="3" fill="#0066cc"/>
+                    </svg>
+                </div>
+                <h1 class="text-3xl font-bold text-center mb-2">SchoolPro</h1>
+                <p class="text-center text-blue-100 text-sm">Gérer l'école, simplement</p>
+            </div>
+
+            <!-- Formulaire -->
+            <div class="p-8">
+                <!-- Erreur Message -->
+                {% if error %}
+                    <div class="mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded animate-slide-in-down">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>{{ error }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <form method="post" class="space-y-6">
+                    {% csrf_token %}
+
+                    <!-- Username -->
+                    <div>
+                        <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
+                            Nom d'utilisateur
+                        </label>
+                        <div class="relative">
+                            <svg class="absolute left-3 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                            <input 
+                                type="text" 
+                                id="username" 
+                                name="username" 
+                                required
+                                placeholder="Entrez votre nom d'utilisateur"
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 transition duration-200"
+                            />
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                            Mot de passe
+                        </label>
+                        <div class="relative">
+                            <svg class="absolute left-3 top-3.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                required
+                                placeholder="Entrez votre mot de passe"
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 transition duration-200"
+                            />
+                        </div>
+                    </div>
+
+                    <!-- Remember Me -->
+                    <div class="flex items-center">
+                        <input 
+                            type="checkbox" 
+                            id="remember" 
+                            name="remember"
+                            class="w-4 h-4 text-blue-600 border-gray-300 rounded cursor-pointer"
+                        />
+                        <label for="remember" class="ml-2 text-sm text-gray-600 cursor-pointer">
+                            Se souvenir de moi
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button 
+                        type="submit"
+                        class="w-full gradient-primary text-white font-bold py-3 px-4 rounded-lg transition duration-200 shadow-lg hover:shadow-xl"
+                    >
+                        <div class="flex items-center justify-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            Se connecter
+                        </div>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-gray-50 px-8 py-4 border-t border-gray-200">
+                <p class="text-center text-sm text-gray-600">
+                    Version 1.0 &nbsp; • &nbsp;
+                    <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">Support</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Info Box -->
+        <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg text-center text-sm text-blue-700 animate-fade-in" style="animation-delay: 0.3s">
+            <p class="font-medium mb-1">Compte de test</p>
+            <p class="text-xs text-blue-600">
+                Username: <span class="font-mono font-bold">devdy</span> &nbsp; | &nbsp;
+                Password: <span class="font-mono font-bold">••••••••</span>
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>
