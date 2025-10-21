@@ -1,0 +1,536 @@
+/* ==========================================================
+   SCHOOLPRO - CSS COMPLET STANDALONE (Sans dépendance Internet)
+   ========================================================== */
+
+/* RESET & BASE */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: #111827;
+    background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%);
+    min-height: 100vh;
+}
+
+/* VARIABLES */
+:root {
+    --primary: #0066cc;
+    --primary-light: #3385dd;
+    --primary-dark: #004499;
+    --secondary: #f0f7ff;
+    --success: #16A34A;
+    --warning: #F59E0B;
+    --danger: #DC2626;
+    --dark: #111827;
+    --gray: #6B7280;
+    --light: #FFFFFF;
+    --border: #E5E7EB;
+}
+
+/* UTILITAIRES DE BASE */
+.container { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.gap-2 { gap: 0.5rem; }
+.gap-3 { gap: 0.75rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+.gap-8 { gap: 2rem; }
+.hidden { display: none !important; }
+.block { display: block; }
+.grid { display: grid; }
+.sticky { position: sticky; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+
+/* SPACING */
+.p-2 { padding: 0.5rem; }
+.p-3 { padding: 0.75rem; }
+.p-4 { padding: 1rem; }
+.p-6 { padding: 1.5rem; }
+.p-8 { padding: 2rem; }
+.px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+.py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+.py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+.m-0 { margin: 0; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-8 { margin-top: 2rem; }
+.mt-12 { margin-top: 3rem; }
+
+/* DIMENSIONS */
+.w-full { width: 100%; }
+.w-64 { width: 16rem; }
+.min-h-screen { min-height: 100vh; }
+.h-16 { height: 4rem; }
+
+/* TYPOGRAPHIE */
+.text-sm { font-size: 0.875rem; }
+.text-base { font-size: 1rem; }
+.text-lg { font-size: 1.125rem; }
+.text-xl { font-size: 1.25rem; }
+.text-2xl { font-size: 1.5rem; }
+.text-3xl { font-size: 1.875rem; }
+.text-4xl { font-size: 2.25rem; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.uppercase { text-transform: uppercase; }
+
+/* COULEURS TEXTE */
+.text-white { color: #ffffff; }
+.text-gray-500 { color: #6B7280; }
+.text-gray-600 { color: #4B5563; }
+.text-gray-700 { color: #374151; }
+.text-gray-900 { color: #111827; }
+.text-blue-600 { color: var(--primary); }
+.text-green-600 { color: var(--success); }
+.text-red-600 { color: var(--danger); }
+.text-orange-600 { color: var(--warning); }
+
+/* COULEURS FOND */
+.bg-white { background-color: #ffffff; }
+.bg-blue-50 { background-color: #EFF6FF; }
+.bg-blue-100 { background-color: #DBEAFE; }
+.bg-gray-50 { background-color: #F9FAFB; }
+.bg-gray-200 { background-color: #E5E7EB; }
+
+/* BORDURES */
+.border { border: 1px solid var(--border); }
+.border-t { border-top: 1px solid var(--border); }
+.border-b { border-bottom: 1px solid var(--border); }
+.border-2 { border-width: 2px; }
+.rounded-lg { border-radius: 0.5rem; }
+.rounded-full { border-radius: 9999px; }
+.rounded-2xl { border-radius: 1rem; }
+
+/* OMBRES */
+.shadow-lg { box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); }
+
+/* ANIMATIONS */
+@keyframes slideInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animate-slide-in-down { animation: slideInDown 0.5s ease-out; }
+.animate-slide-in-up { animation: slideInUp 0.5s ease-out; }
+.animate-fade-in { animation: fadeIn 0.5s ease-out; }
+
+/* TRANSITIONS */
+.transition { transition: all 0.3s ease; }
+.hover\:shadow-lg:hover { box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); }
+
+/* ==========================================================
+   COMPOSANTS NAVBAR
+   ========================================================== */
+.navbar {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    box-shadow: 0 4px 15px rgba(0, 112, 224, 0.25);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+}
+
+.navbar-logo svg {
+    width: 2rem;
+    height: 2rem;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background 0.3s;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================================
+   SIDEBAR
+   ========================================================== */
+.sidebar {
+    background: var(--light);
+    border-right: 1px solid var(--border);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    width: 16rem;
+    min-height: 100vh;
+    z-index: 40;
+}
+
+/* Toujours visible sur desktop */
+@media (min-width: 768px) {
+    .sidebar {
+        display: block !important;
+    }
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    color: var(--dark);
+    text-decoration: none;
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.sidebar-item:hover {
+    background-color: var(--secondary);
+    border-left-color: var(--primary);
+    color: var(--primary);
+}
+
+.sidebar-item.active {
+    background-color: var(--secondary);
+    border-left-color: var(--primary);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.sidebar-icon {
+    width: 20px !important;  /* CORRECTION ICI */
+    height: 20px !important;
+    flex-shrink: 0;
+}
+
+.sidebar-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* ==========================================================
+   CARTES (Cards)
+   ========================================================== */
+.card {
+    background: var(--light);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    box-shadow: 0 8px 25px rgba(0, 112, 224, 0.15);
+    transform: translateY(-4px);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--secondary), #E0F2FE);
+    padding: 1.2rem 1.5rem;
+    border-bottom: 2px solid #D0E8F2;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-footer {
+    background-color: #F9FAFB;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+/* ==========================================================
+   GRILLE RESPONSIVE
+   ========================================================== */
+.grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+
+@media (min-width: 768px) {
+    .md\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .md\:flex { display: flex; }
+    .md\:hidden { display: none !important; }
+    .md\:block { display: block !important; }
+}
+
+@media (min-width: 1024px) {
+    .lg\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .lg\:grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+    .lg\:col-span-2 { grid-column: span 2; }
+}
+
+/* ==========================================================
+   BOUTONS
+   ========================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(0, 112, 224, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: var(--secondary);
+    color: var(--primary);
+}
+
+.btn-secondary:hover {
+    background: #D0E8F2;
+}
+
+/* ==========================================================
+   BADGES
+   ========================================================== */
+.badge {
+    display: inline-flex;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-primary {
+    background-color: #DBEAFE;
+    color: var(--primary);
+}
+
+.badge-success {
+    background-color: #DCFCE7;
+    color: var(--success);
+}
+
+.badge-warning {
+    background-color: #FEF3C7;
+    color: var(--warning);
+}
+
+.badge-danger {
+    background-color: #FEE2E2;
+    color: var(--danger);
+}
+
+/* ==========================================================
+   ICÔNES SVG
+   ========================================================== */
+svg {
+    display: inline-block;
+    vertical-align: middle;
+    fill: none;
+    stroke: currentColor;
+}
+
+/* Dimensions des icônes */
+.w-4 { width: 1rem; }
+.h-4 { height: 1rem; }
+.w-5 { width: 1.25rem; }
+.h-5 { height: 1.25rem; }
+.w-6 { width: 1.5rem; }
+.h-6 { height: 1.5rem; }
+.w-8 { width: 2rem; }
+.h-8 { height: 2rem; }
+.w-10 { width: 2.5rem; }
+.h-10 { height: 2.5rem; }
+.w-12 { width: 3rem; }
+.h-12 { height: 3rem; }
+.w-16 { width: 4rem; }
+.h-16 { height: 4rem; }
+
+/* ==========================================================
+   TABLES
+   ========================================================== */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    text-align: left;
+    padding: 0.75rem 1rem;
+}
+
+.table thead tr {
+    border-bottom: 2px solid var(--border);
+}
+
+.table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
+}
+
+.table tbody tr:hover {
+    background-color: var(--secondary);
+}
+
+/* ==========================================================
+   ALERTS
+   ========================================================== */
+.alert {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid;
+}
+
+.alert-success {
+    background-color: #DCFCE7;
+    border-left-color: var(--success);
+    color: #166534;
+}
+
+.alert-danger {
+    background-color: #FEE2E2;
+    border-left-color: var(--danger);
+    color: #991B1B;
+}
+
+.alert-warning {
+    background-color: #FEF3C7;
+    border-left-color: var(--warning);
+    color: #92400E;
+}
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+footer {
+    background-color: var(--light);
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+}
+
+footer a {
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+footer a:hover {
+    color: var(--primary);
+}
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+@media (max-width: 767px) {
+    .sidebar {
+        position: fixed;
+        left: -100%;
+        top: 4rem;
+        width: 80%;
+        max-width: 300px;
+        height: calc(100vh - 4rem);
+        z-index: 40;
+        transition: left 0.3s ease;
+        overflow-y: auto;
+    }
+    
+    .sidebar.active {
+        left: 0;
+    }
+    
+    /* Overlay pour mobile */
+    .sidebar.active::before {
+        content: '';
+        position: fixed;
+        top: 4rem;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 39; /* doit être en dessous de la sidebar (40) mais au-dessus du contenu */
+        pointer-events: auto;
+    }
+    
+    .grid-cols-1 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Desktop - sidebar toujours visible */
+@media (min-width: 768px) {
+    .sidebar {
+        position: static !important;
+        display: block !important;
+        left: 0 !important;
+    }
+}
+
+/* ==========================================================
+   UTILITAIRES SUPPLÉMENTAIRES
+   ========================================================== */
+.space-y-3 > * + * { margin-top: 0.75rem; }
+.space-y-4 > * + * { margin-top: 1rem; }
+.space-y-6 > * + * { margin-top: 1.5rem; }
+.space-y-8 > * + * { margin-top: 2rem; }
+
+.overflow-hidden { overflow: hidden; }
+.overflow-x-auto { overflow-x: auto; }
+
+.z-50 { z-index: 50; }
+.z-40 { z-index: 40; }
+
+.max-w-7xl { max-width: 80rem; margin-left: auto; margin-right: auto; }
+
+.flex-1 { flex: 1; }
+.flex-shrink-0 { flex-shrink: 0; }
+
+.cursor-pointer { cursor: pointer; }
