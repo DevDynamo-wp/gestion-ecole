@@ -296,3 +296,145 @@ def page_not_found(request, exception):
 def server_error(request):
     """Page 500"""
     return render(request, 'gestion/500.html', status=500)
+
+
+# ========== VUES DE GESTION ==========
+
+@login_required(login_url='gestion:login')
+def gestion_etudiants(request):
+    """Vue pour la gestion des étudiants"""
+    etudiants = Etudiant.objects.filter(is_active=True).order_by('-date_inscription')
+    
+    # Filtres
+    search = request.GET.get('search', '')
+    if search:
+        etudiants = etudiants.filter(
+            Q(first_name__icontains=search) | 
+            Q(last_name__icontains=search)
+        )
+    
+    context = {
+        'etudiants': etudiants,
+        'search': search,
+    }
+    return render(request, 'gestion/gestion_etudiants.html', context)
+
+
+@login_required(login_url='gestion:login')
+def gestion_enseignants(request):
+    """Vue pour la gestion des enseignants"""
+    context = {
+        'page_title': 'Gestion des Enseignants',
+        'icon': 'chalkboard-teacher'
+    }
+    return render(request, 'gestion/page_generique.html', context)
+
+
+@login_required(login_url='gestion:login')
+def gestion_classes(request):
+    """Vue pour la gestion des classes"""
+    context = {
+        'page_title': 'Gestion des Classes',
+        'icon': 'school'
+    }
+    return render(request, 'gestion/page_generique.html', context)
+
+
+@login_required(login_url='gestion:login')
+def gestion_notes(request):
+    """Vue pour la gestion des notes"""
+    context = {
+        'page_title': 'Gestion des Notes',
+        'icon': 'clipboard-list'
+    }
+    return render(request, 'gestion/page_generique.html', context)
+
+
+@login_required(login_url='gestion:login')
+def gestion_paiements(request):
+    """Vue pour la gestion des paiements"""
+    context = {
+        'page_title': 'Gestion des Paiements',
+        'icon': 'credit-card'
+    }
+    return render(request, 'gestion/page_generique.html', context)
+
+
+@login_required(login_url='gestion:login')
+def gestion_bulletins(request):
+    """Vue pour la gestion des bulletins"""
+    context = {
+        'page_title': 'Gestion des Bulletins',
+        'icon': 'file-pdf'
+    }
+    return render(request, 'gestion/page_generique.html', context)
+
+
+@login_required(login_url='gestion:login')
+def gestion_parents(request):
+    """Vue pour la gestion des parents"""
+    context = {
+        'page_title': 'Gestion des Parents',
+        'icon': 'users'
+    }
+    return render(request, 'gestion/page_generique.html', context)
+
+
+@login_required(login_url='gestion:login')
+def gestion_matieres(request):
+    """Vue pour la gestion des matières"""
+    context = {
+        'page_title': 'Gestion des Matières',
+        'icon': 'book'
+    }
+    return render(request, 'gestion/page_generique.html', context)
+
+
+@login_required(login_url='gestion:login')
+def gestion_annees_scolaires(request):
+    """Vue pour la gestion des années scolaires"""
+    context = {
+        'page_title': 'Gestion des Années Scolaires',
+        'icon': 'calendar-alt'
+    }
+    return render(request, 'gestion/page_generique.html', context)
+
+
+@login_required(login_url='gestion:login')
+def gestion_credits(request):
+    """Vue pour la gestion des crédits"""
+    context = {
+        'page_title': 'Gestion des Crédits',
+        'icon': 'coins'
+    }
+    return render(request, 'gestion/page_generique.html', context)
+
+
+@login_required(login_url='gestion:login')
+def gestion_backups(request):
+    """Vue pour la gestion des sauvegardes"""
+    context = {
+        'page_title': 'Gestion des Sauvegardes',
+        'icon': 'cloud-upload-alt'
+    }
+    return render(request, 'gestion/page_generique.html', context)
+
+
+@login_required(login_url='gestion:login')
+def gestion_rapports(request):
+    """Vue pour la gestion des rapports"""
+    context = {
+        'page_title': 'Gestion des Rapports',
+        'icon': 'chart-bar'
+    }
+    return render(request, 'gestion/page_generique.html', context)
+
+
+@login_required(login_url='gestion:login')
+def gestion_parametres(request):
+    """Vue pour la gestion des paramètres"""
+    context = {
+        'page_title': 'Paramètres',
+        'icon': 'cog'
+    }
+    return render(request, 'gestion/page_generique.html', context)

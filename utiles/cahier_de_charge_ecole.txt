@@ -1,0 +1,152 @@
+
+## 🏫 **Projet : Application Web de Gestion Scolaire (Multi-niveau)**
+
+### **1. Objectif du projet**
+
+Créer une application web universelle pour la gestion des écoles et collèges, permettant d’administrer efficacement :
+
+* Les étudiants, enseignants, classes et cours
+* Les notes, devoirs, bulletins et emplois du temps
+* Les comptes utilisateurs avec différents niveaux d’accès
+* Les sauvegardes automatiques et un mode hors connexion (LAN)
+
+---
+
+### **2. Technologies utilisées**
+
+* **Frontend** : HTML, CSS, JavaScript
+* **Backend** : Python (Flask ou Django)
+* **Base de données** : SQLite (ou PostgreSQL pour version avancée)
+* **Déploiement local** : Serveur PC + réseau Wi-Fi local
+* **Sauvegarde en ligne** : Cloud (OneDrive, Google Drive ou serveur distant)
+
+---
+
+### **3. Architecture du système**
+
+* **Mode local (LAN)** : accessible sans Internet
+* **Mode connecté (optionnel)** : activation de crédits, mises à jour et sauvegardes cloud
+* **Sauvegarde automatique** : 2 fois par semaine sur serveur distant
+* **Interface utilisateur** : responsive et adaptée aux tablettes et ordinateurs
+
+---
+
+### **4. Gestion des rôles et accès**
+
+#### 👑 **Administrateur**
+
+* Créer, modifier, désactiver les comptes utilisateurs (profs, collaborateurs, parents)
+* Définir les droits d’accès pour chaque rôle
+* Gérer les paramètres généraux : année scolaire, trimestres/semestres, matières, coefficients, etc.
+* Superviser les sauvegardes et l’historique des activités
+
+#### 👨‍🏫 **Professeurs**
+
+* Gérer leurs classes et matières
+* Enregistrer les notes, devoirs et appréciations
+* Consulter la liste des étudiants par classe
+* Générer des bulletins (avec ou sans validation admin)
+
+#### 👩‍💼 **Collaborateurs / Secrétaires**
+
+* Enregistrer les nouveaux étudiants et parents
+* Gérer les inscriptions, réinscriptions et paiements
+* Imprimer les fiches et reçus
+
+#### 👨‍👩‍👧 **Parents (optionnel)**
+
+* Consulter les notes et bulletins de leurs enfants
+* Recevoir des notifications (paiements, résultats, réunions)
+
+---
+
+### **5. Gestion des données**
+
+#### Étudiants
+
+* Nom, prénom, sexe, date et lieu de naissance, adresse, photo
+* Statut : **nouvel inscrit** ou **réinscrit**
+* Parent(s) associé(s)
+* Classe, année scolaire, scolarité
+
+#### Parents
+
+* Nom, prénom, contact, profession, nombre d’enfants inscrits
+
+#### Enseignants
+
+* Nom, prénom, sexe, adresse, photo
+* Photo de la carte d’identité
+* Matières enseignées et classes attribuées
+
+#### Cours / Matières
+
+* Matière, coefficient, enseignant responsable
+* Niveau concerné (primaire ou secondaire)
+
+#### Notes / Évaluations
+
+* Type : interrogation, devoir, examen
+* Trimestre / semestre / semaine
+* Calcul automatique des moyennes
+
+#### Classes
+
+* Nom, effectif, enseignant principal
+* Matières et professeurs assignés
+* Niveau : primaire ou secondaire
+
+#### Emploi du temps
+
+* Création et modification par admin ou collaborateur autorisé
+* Affichage dynamique selon rôle (prof, étudiant, etc.)
+
+---
+
+### **6. Spécificités par niveau**
+
+#### Cours primaire
+
+* Un enseignant principal par classe
+* Enseignants spéciaux pour langues ou activités
+
+#### Cours secondaire
+
+* Plusieurs enseignants par classe
+* Répartition des matières par spécialité
+
+---
+
+### **7. Fonctionnalités supplémentaires**
+
+* Système de **recherche intelligente** (étudiant, parent, enseignant, classe…)
+* Tableau de bord dynamique avec statistiques (inscriptions, genre, résultats)
+* Historique des connexions et actions
+* Export des données (PDF, Excel)
+* Sauvegarde et restauration locale
+* Thèmes clair/sombre pour l’interface
+
+---
+
+### **8. Sécurité et confidentialité**
+
+* Authentification par identifiant et mot de passe
+* Modification du mot de passe par l’utilisateur
+* Chiffrement des mots de passe (hashing)
+* Journalisation des actions importantes
+
+---
+
+### **9. Monétisation**
+
+* Activation via système de **crédit** (connexion à Internet requise)
+* Gestion du solde et durée de validité du crédit
+* Possibilité d’abonnement annuel pour les écoles
+
+---
+
+### **10. Évolutions futures (facultatives)**
+
+* Module de messagerie interne (prof ↔ admin ↔ parent)
+* Application mobile (Android/iOS) connectée au serveur LAN
+* Support multi-établissements (un même admin pour plusieurs écoles)

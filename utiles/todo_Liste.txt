@@ -1,0 +1,170 @@
+
+* **protéger le code source** (ne pas exposer les fichiers aux utilisateurs),
+* **permettre la maintenance** sans perdre les données,
+* **déployer en local (LAN)**,
+* et **séparer les versions développement / production**.
+
+Voici donc une **nouvelle to-do list complète**, **intégrant la logique de déploiement sécurisé et maintenable**.
+
+---
+
+## ✅ **TO-DO LIST – Application Scolaire Web Sécurisée et Maintenable**
+
+---
+
+### 🧠 **Phase 1 : Planification et Organisation**
+
+**Objectif :** Préparer le cadre technique et fonctionnel du projet.
+
+1. [ ] Définir le nom, le logo et le slogan de l’application.
+2. [ ] Identifier les rôles (Admin, Professeur, Collaborateur, Parent, Étudiant).
+3. [ ] Lister toutes les fonctionnalités (gestion, notes, paiements, statistiques…).
+4. [ ] Définir les modules :
+
+   * Utilisateurs et rôles
+   * Étudiants / Parents
+   * Enseignants / Classes / Matières
+   * Notes / Bulletins
+   * Crédit et paiements
+   * Sauvegarde automatique et cloud
+5. [ ] Créer un dépôt Git (`git init`) pour versionner le code.
+6. [ ] Choisir le framework backend : **Django** (recommandé).
+7. [ ] Configurer un environnement virtuel Python (`venv`).
+8. [ ] Créer deux environnements :
+
+   * `src/` → version de développement (code lisible)
+   * `dist/` → version compilée (code distribué)
+
+---
+
+### 🧩 **Phase 2 : Conception du Système**
+
+**Objectif :** Structurer l’architecture et la base de données.
+
+1. [ ] Modéliser les entités : Étudiant, Parent, Enseignant, Classe, Matière, Note, Utilisateur, Année scolaire, Paiement, Journal.
+2. [ ] Définir les relations (1-N, N-N).
+3. [ ] Créer le schéma de base de données (diagramme UML).
+4. [ ] Implémenter les modèles Django (`models.py`).
+5. [ ] Appliquer les migrations (`makemigrations`, `migrate`).
+6. [ ] Créer un compte administrateur (`createsuperuser`).
+7. [ ] Mettre en place la sauvegarde automatique (script `.py` planifié).
+
+---
+
+### 🎨 **Phase 3 : Interface Utilisateur (Frontend)**
+
+**Objectif :** Développer une interface claire et ergonomique.
+
+1. [ ] Créer les pages HTML de base :
+
+   * Connexion / Tableau de bord
+   * Gestion étudiants / enseignants / classes
+   * Saisie des notes / bulletins
+   * Paramètres / Sauvegarde / Aide
+2. [ ] Ajouter CSS et JS pour un design responsive.
+3. [ ] Intégrer un framework CSS (Bootstrap / Tailwind).
+4. [ ] Ajouter la recherche dynamique (JS + fetch/AJAX).
+5. [ ] Créer un thème sombre et clair.
+6. [ ] Tester l’affichage sur téléphone / tablette.
+
+---
+
+### ⚙️ **Phase 4 : Développement Backend**
+
+**Objectif :** Faire fonctionner la logique de gestion et de sécurité.
+
+1. [ ] Configurer le système d’authentification Django.
+2. [ ] Créer des groupes d’utilisateurs (admin, prof, collab, parent).
+3. [ ] Gérer les permissions (ajout, modification, lecture, suppression).
+4. [ ] Créer les vues et routes (`views.py`, `urls.py`).
+5. [ ] Gérer les sessions et la sécurité des connexions.
+6. [ ] Créer les API locales (JSON pour communication interne).
+7. [ ] Intégrer le calcul automatique des moyennes et coefficients.
+8. [ ] Implémenter le système de crédits (activation en ligne).
+9. [ ] Créer la génération des bulletins en PDF (avec ReportLab).
+10. [ ] Ajouter la sauvegarde automatique vers le cloud (OneDrive/Google Drive).
+
+---
+
+### 🧱 **Phase 5 : Séparation Développement / Production**
+
+**Objectif :** Empêcher l’accès au code source tout en gardant le contrôle.
+
+1. [ ] Créer la structure suivante :
+
+   ```
+   /projet_ecole/
+   ├── src/        # Code source clair (développement)
+   ├── dist/       # Version compilée protégée (production)
+   └── build_scripts/
+   ```
+2. [ ] Utiliser **PyInstaller** ou **PyArmor** pour :
+
+   * Compiler `src/app.py` en `dist/run_server.exe` ou `.pyc`
+   * Inclure les templates et fichiers statiques
+3. [ ] Tester la version compilée localement.
+4. [ ] Vérifier que les données (base SQLite) restent externes et non supprimées.
+5. [ ] Sauvegarder régulièrement le dossier `src/` pour maintenance future.
+
+---
+
+### 🌐 **Phase 6 : Déploiement Local (LAN)**
+
+**Objectif :** Rendre l’application accessible à plusieurs utilisateurs sans Internet.
+
+1. [ ] Configurer le serveur local :
+
+   * `python manage.py runserver 0.0.0.0:8000`
+2. [ ] Connecter le PC serveur et les clients (mobiles/PC) via Wi-Fi local.
+3. [ ] Tester l’accès via IP locale (ex. `192.168.1.5:8000`).
+4. [ ] Créer un raccourci de lancement automatique (`run_server.bat`).
+5. [ ] Vérifier la stabilité et la performance réseau.
+
+---
+
+### ☁️ **Phase 7 : Sauvegarde et Maintenance**
+
+**Objectif :** Préserver les données et faciliter les mises à jour.
+
+1. [ ] Sauvegarder la base SQLite dans un dossier externe (`/data/`).
+2. [ ] Créer un script Python de sauvegarde automatique :
+
+   * Export `.db` → Cloud ou disque externe
+   * Exécution planifiée (2 fois/semaine)
+3. [ ] Mettre en place un système de restauration de données.
+4. [ ] Garder une copie des fichiers `src/` (non compilés) pour la maintenance.
+5. [ ] À chaque mise à jour :
+
+   * Modifier le code dans `src/`
+   * Recompiler vers `dist/`
+   * Distribuer la nouvelle version sans toucher à la base de données existante.
+
+---
+
+### 🧪 **Phase 8 : Tests**
+
+**Objectif :** Vérifier que tout fonctionne parfaitement.
+
+1. [ ] Tester les rôles (admin, prof, collab, parent).
+2. [ ] Vérifier les formulaires et validations.
+3. [ ] Tester le calcul des moyennes et bulletins.
+4. [ ] Vérifier la sauvegarde/restauration des données.
+5. [ ] Simuler plusieurs connexions sur le réseau local.
+6. [ ] Corriger les bugs détectés.
+
+---
+
+### 🚀 **Phase 9 : Livraison et Suivi**
+
+**Objectif :** Finaliser le produit et préparer les futures versions.
+
+1. [ ] Fournir le dossier `dist/` compilé aux utilisateurs.
+2. [ ] Documenter l’installation et le lancement.
+3. [ ] Conserver la version `src/` originale dans un dépôt Git privé.
+4. [ ] Créer un changelog pour suivre les versions.
+5. [ ] Mettre en place un système simple de mise à jour.
+6. [ ] Planifier les évolutions futures :
+
+   * Messagerie interne
+   * Application mobile
+   * Tableau de bord analytique
